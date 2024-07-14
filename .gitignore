@@ -14,10 +14,6 @@ pnpm-lock.yaml
 .turbo/
 .eslintcache
 .pnpm-store
-.wrangler/
-/bun.lockb
-
-/contacts.json
 
 # ignore top-level vscode settings
 /.vscode/settings.json

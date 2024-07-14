@@ -1,62 +1,80 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
-import { formatDate } from '../../util.js';
+import Layout from "../../layouts/Layout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { formatDate } from "../../util.js";
 
-const posts = await Astro.glob('./*.mdx');
+const posts = await Astro.glob("./*.mdx");
 posts.sort((a, b) => {
-    const dateASplit = a.frontmatter.date.split("-");
-    const dateA = formatDate(new Date(parseInt(dateASplit[2]), parseInt(dateASplit[1]) - 1, parseInt(dateASplit[0])));
+  const dateASplit = a.frontmatter.date.split("-");
+  const dateA = formatDate(
+    new Date(
+      parseInt(dateASplit[2]),
+      parseInt(dateASplit[1]) - 1,
+      parseInt(dateASplit[0])
+    )
+  );
 
-    const dateBSplit = b.frontmatter.date.split("-");
-    const dateB = formatDate(new Date(parseInt(dateBSplit[2]), parseInt(dateBSplit[1]) - 1, parseInt(dateBSplit[0])));
+  const dateBSplit = b.frontmatter.date.split("-");
+  const dateB = formatDate(
+    new Date(
+      parseInt(dateBSplit[2]),
+      parseInt(dateBSplit[1]) - 1,
+      parseInt(dateBSplit[0])
+    )
+  );
 
-    return parseInt(dateB) - parseInt(dateA);
+  return parseInt(dateB) - parseInt(dateA);
 });
 ---
 
 <Layout title="Eny's Blog Posts">
-	<div id="content-background" />
-    <main>
-        <h1 class="header">Eny's Blog Posts</h1>
-        <div id="articles">
-            {posts.map((post, index) => (
-                <ArticleCard title={post.frontmatter.title} description={post.frontmatter.description} href={post.url} img={post.frontmatter.img} tags={post.frontmatter.tags} />
-            ))}
-        </div>
-        <h2 class="header">
-            And more to come...
-        </h2>
-    </main>
+  <div id="content-background"></div>
+  <main>
+    <h1 class="header">Eny's Blog Posts</h1>
+    <div id="articles">
+      {
+        posts.map((post, index) => (
+          <ArticleCard
+            title={post.frontmatter.title}
+            description={post.frontmatter.description}
+            href={post.url}
+            img={post.frontmatter.img}
+            tags={post.frontmatter.tags}
+          />
+        ))
+      }
+    </div>
+    <h2 class="header">And more to come...</h2>
+  </main>
 </Layout>
 
 <style lang="scss">
-	#content-background {
-		position: fixed;
-		top: 4rem;
-		z-index: -2;
-		height: 100vh;
-		width: 100%;
-		background-image: url("/svg/geometric-dark.svg");
-		background-repeat: no-repeat;
-		background-position: 50%;
-	}
+  #content-background {
+    position: fixed;
+    top: 4rem;
+    z-index: -2;
+    height: 100vh;
+    width: 100%;
+    background-image: url("/svg/geometric-dark.svg");
+    background-repeat: no-repeat;
+    background-position: 50%;
+  }
 
-    .header {
-        text-align: center;
+  .header {
+    text-align: center;
+  }
+
+  #articles {
+    display: flex;
+    flex-direction: row;
+    max-width: 60%;
+    justify-content: center;
+    gap: 2rem;
+    margin: 5rem auto;
+    flex-wrap: wrap;
+
+    @media (max-width: 649px) {
+      max-width: 100%;
     }
-
-    #articles {
-        display: flex;
-        flex-direction: row;
-        max-width: 60%;
-        justify-content: center;
-        gap: 2rem;
-        margin: 5rem auto;
-        flex-wrap: wrap;
-
-        @media (max-width: 649px) {
-            max-width: 100%;
-        }
-    }
+  }
 </style>

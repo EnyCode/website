@@ -7,64 +7,75 @@ img: /blog/placeholder.png
 tags: [crafti, devlog]
 date: 20-08-2023
 ---
-Crafti is my new pet project, and this is my first devlog about it. 
+
+Crafti is my new pet project, and this is my first devlog about it.
 
 Interested in what it is? I have written an article all about it's goals and how it hopes to achieve them [here](/blog/what-is-crafti).
 
-
 ## Prototype
+
 ![The prototype running](https://media.discordapp.net/attachments/1052639944218255420/1140709274192973824/image.png)
-The first thing I did was come up with a proof of concept. Now, I already knew of the [`block-mesh`](https://crates.io/crates/block-mesh) crate, but every time I had tried to use it in the past, I just couldn't figure it out. While it does have an example using bevy, my game engine of choice, I just couldn't re-implement it properly. 
-After a lot of searching, I found a great example. I can't find it now, but it helped me create my first prototype. It was very simple, just generating a flat world then meshing it together, but it worked, and that was it. 
+The first thing I did was come up with a proof of concept. Now, I already knew of the [`block-mesh`](https://crates.io/crates/block-mesh) crate, but every time I had tried to use it in the past, I just couldn't figure it out. While it does have an example using bevy, my game engine of choice, I just couldn't re-implement it properly.
+After a lot of searching, I found a great example. I can't find it now, but it helped me create my first prototype. It was very simple, just generating a flat world then meshing it together, but it worked, and that was it.
 
 The next obvious course of action was to add networking support, though that didn't exactly go as planned...
 
 ## Stepping into the world of networking
-Now, you may be wondering why I made a Minecraft protocol library from scratch, when there are so many already out there. 
-Well, the answer is... *I don't know.*
 
-While I will almost definitely switch to another library or a fork in the future, such as [`azalea_protocol`](https://crates.io/crates/azalea-protocol), it was a great experience and the first time I wrote a derive macro. But it does work, which I am proud of. 
+Now, you may be wondering why I made a Minecraft protocol library from scratch, when there are so many already out there.
+Well, the answer is... _I don't know._
+
+While I will almost definitely switch to another library or a fork in the future, such as [`azalea_protocol`](https://crates.io/crates/azalea-protocol), it was a great experience and the first time I wrote a derive macro. But it does work, which I am proud of.
 
 Let's look into why it is good and bad.
+
 ### Pros
+
 - Fully customizable
 - Easy to use
 - Easy to add new packet types
 - Easy to add new packet structs
+
 ### Negatives
+
 - Doesn't have DNS service resolving
-This is a big flaw as it means that you can't connect to any server that uses SRV records, like most of them. Essentially, you could only connect directly to servers. 
-- You can only read packets that you know the type of. 
-While this isn't a necessary feature, one of my goals for Crafti was to make it expandable, which includes adding new packets. More info about why this is important below. 
+  This is a big flaw as it means that you can't connect to any server that uses SRV records, like most of them. Essentially, you could only connect directly to servers.
+- You can only read packets that you know the type of.
+  While this isn't a necessary feature, one of my goals for Crafti was to make it expandable, which includes adding new packets. More info about why this is important below.
 
-## Success! Logging in to servers. 
+## Success! Logging in to servers.
+
 Even with only the most basic of code in the main program, logging in to Minecraft (without any rendering) is surprisingly easy in offline mode, as there is no encryption and no authentication, all you have to do is send 2 packets:
-- A [`Handshake`](https://wiki.vg/Protocol#Handshake) packet, which takes you to the login stage. 
-- A [`Login Start`](https://wiki.vg/Protocol#Login_Start) packet, which takes you straight into the game. 
 
-And, if you want to *not* disconnect after ~30 seconds, you need to respond to a [Keep Alive Packet](https://wiki.vg/Protocol#Keep_Alive) with an equal payload, just a different packet id. 
+- A [`Handshake`](https://wiki.vg/Protocol#Handshake) packet, which takes you to the login stage.
+- A [`Login Start`](https://wiki.vg/Protocol#Login_Start) packet, which takes you straight into the game.
+
+And, if you want to _not_ disconnect after ~30 seconds, you need to respond to a [Keep Alive Packet](https://wiki.vg/Protocol#Keep_Alive) with an equal payload, just a different packet id.
 
 ## Minecraft sends a LOT of packets...
-With no entities and a vanilla Minecraft server, `crafti` receives ~450 packets a **second**. With another player spectating, we receive around 500-600. However, right now, with our *extremely* basic functionality, we only care about 2 types of packets:
-- The Keep Alive packet, as seen above, so we don't timeout. 
+
+With no entities and a vanilla Minecraft server, `crafti` receives ~450 packets a **second**. With another player spectating, we receive around 500-600. However, right now, with our _extremely_ basic functionality, we only care about 2 types of packets:
+
+- The Keep Alive packet, as seen above, so we don't timeout.
 - The Disconnect packet, so, if we do get disconnected, we know why.
 
-My original plan was to have a router, with a thread reading all packets and calling handle functions for each type using traits. 
+My original plan was to have a router, with a thread reading all packets and calling handle functions for each type using traits.
 
-This did not work... at all. 
+This did not work... at all.
 
-Every time I tried to work around the error, thinking that I was so close to a solution, it always came back. 
-It's cause? A limitation in `crafti_net` (and possibly other libraries) that means we cannot read a packet without knowing it's type. We can figure out the type using the packet id, but there's no way we can use it dynamically, since Rust just isn't dynamically typed. 
-The flaw was within the implementation of the plan itself. 
+Every time I tried to work around the error, thinking that I was so close to a solution, it always came back.
+It's cause? A limitation in `crafti_net` (and possibly other libraries) that means we cannot read a packet without knowing it's type. We can figure out the type using the packet id, but there's no way we can use it dynamically, since Rust just isn't dynamically typed.
+The flaw was within the implementation of the plan itself.
 
-Now, there is a way around this, but I consider it too janky to use properly, though if it has to be used as a last resort, then it is good enough. 
-Each mod that adds packets can register its own function to handle all the packets they add. Then, when we receive a packet, we pass it the read packet id, and it returns whether it handled it or not. If not, we continue checking other mods. 
+Now, there is a way around this, but I consider it too janky to use properly, though if it has to be used as a last resort, then it is good enough.
+Each mod that adds packets can register its own function to handle all the packets they add. Then, when we receive a packet, we pass it the read packet id, and it returns whether it handled it or not. If not, we continue checking other mods.
 
 ## Conclusion
-Making a Minecraft client is **hard**. But it's made easier by the people who dedicate their time to document all of Minecraft's networking, it's weird quirks and everything else you could possibly want to know. So thank you to everyone who works on the [Minecraft Wiki](https://minecraft.wiki) and the [Modern Minecraft Wiki](https://wiki.vg). 
+
+Making a Minecraft client is **hard**. But it's made easier by the people who dedicate their time to document all of Minecraft's networking, it's weird quirks and everything else you could possibly want to know. So thank you to everyone who works on the [Minecraft Wiki](https://minecraft.wiki) and the [Modern Minecraft Wiki](https://wiki.vg).
 
 For the future of this project, I'll upload it to GitHub and continue to try to find a solution to the networking problem. I'll try and make a devlog roughly once a week, published here. Thanks for reading!
-Also, sorry for the badly written article, I'm still learning how best to write blog posts. 
+Also, sorry for the badly written article, I'm still learning how best to write blog posts.
 
-*Feel free to subscribe to receive weekly email updates to Crafti devlogs*
-*I promise you'll only get 1 weekly email for a devlog, nothing else.*
+_Feel free to subscribe to receive weekly email updates to Crafti devlogs_
+_I promise you'll only get 1 weekly email for a devlog, nothing else._
