@@ -1,0 +1,77 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: Goodbye, nodemon! 💔
+description: Test blog
+author: Vazgen
+img: /blog/placeholder.png
+tags: [test]
+date: 10-01-2023
+---
+
+I love nodemon 💚, I used it in almost all my Node.js projects in the past 6 years but with the release of Node.js 18 we no longer need it.
+
+So if you don’t know what nodemon is, according to their official website:
+
+> “Nodemon is a utility depended on about 3 million projects, that will monitor for any changes in your source and automatically restart your server. Perfect for development.” (nodemon.io, 2023).
+
+And in other words, it’s a tool that you first need to install it in your project's package.json file or globally and use it to restart your server automatically when you make changes in your project files.
+
+Example:
+```py
+npm install -g nodemon #install it globally
+npm install -D nodemon #install it locally (dev dependency)
+
+nodemon server.js localhost 8080 #then to run your local dev server
+```
+
+Now this same feature that nodemon provided for years, which I am very thankful for, it is now built in Node.js v18 ≥, and it can be used with the new flag --watch. Example:
+
+```py
+#watches entry point file and any required imported modules
+node --watch server.js
+
+#specify which paths to watch, turns off watching of required 
+#of imported modules (only on Windows, MacOS, 🐧😢) 
+node --watch-path=./src --watch-path=./tests index.js
+
+#disables clearing console output when restarted
+node --watch --watch-preserve-output server.js
+```
+
+It’s that simple, I hope you found this helpful and until the next time!
+
+**References:**
+
+I love nodemon 💚, I used it in almost all my Node.js projects in the past 6 years but with the release of Node.js 18 we no longer need it.
+
+So if you don’t know what nodemon is, according to their official website:
+
+> “Nodemon is a utility depended on about 3 million projects, that will monitor for any changes in your source and automatically restart your server. Perfect for development.” (nodemon.io, 2023).
+
+And in other words, it’s a tool that you first need to install it in your project's package.json file or globally and use it to restart your server automatically when you make changes in your project files.
+
+Example:
+```py
+npm install -g nodemon #install it globally
+npm install -D nodemon #install it locally (dev dependency)
+
+nodemon server.js localhost 8080 #then to run your local dev server
+```
+
+Now this same feature that nodemon provided for years, which I am very thankful for, it is now built in Node.js v18 ≥, and it can be used with the new flag --watch. Example:
+
+```py
+#watches entry point file and any required imported modules
+node --watch server.js
+
+#specify which paths to watch, turns off watching of required 
+#of imported modules (only on Windows, MacOS, 🐧😢) 
+node --watch-path=./src --watch-path=./tests index.js
+
+#disables clearing console output when restarted
+node --watch --watch-preserve-output server.js
+```
+
+It’s that simple, I hope you found this helpful and until the next time!
+
+**References:**

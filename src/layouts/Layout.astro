@@ -1,0 +1,355 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,300,0,0"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head><nav class="desktopNav">
+    <div id="container">
+      <div id="icon">
+        <svg
+          aria-label="Icon"
+          xmlns="http://www.w3.org/2000/svg"
+          id="icon"
+          viewBox="0 0 1000 1000"
+          ><def
+            ><pattern
+              id="diagonal"
+              width="150"
+              height="100"
+              patternTransform="rotate(45 0 0)"
+              patternUnits="userSpaceOnUse"
+              ><line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="100"
+                stroke-width="75"
+                stroke="var(--dark-grey)"
+                class="iconFill"
+                style="transition: all 0.2s ease-in-out;"></line></pattern
+            ></def
+          ><path
+            d="M 100 250 L 100 750 L 275 925 L 775 925 L 950 750 L 775 575 L 950 400 L 950 250 L 775 75 L 275 75 L 100 250"
+            fill="url(#diagonal)"
+            stroke-width="50"
+            stroke="var(--green-hover)"></path></svg
+        >
+        <a id="icon-link" href="/"><span>&lt;eny /&gt;</span></a>
+      </div>
+      <div id="expand"></div>
+      <div id="wrapper">
+        <a href="/#projects">Projects</a>
+        <div class="vertical"></div>
+        <a href="/blog">Blog</a>
+        <div class="vertical"></div>
+        <a href="/#about">About</a>
+      </div>
+    </div>
+  </nav>
+  <nav class="mobileNav">
+    <div id="links">
+      <a href="/" id="icon"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          id="icon"
+          viewBox="0 0 1000 1000"
+          ><def
+            ><pattern
+              id="diagonal"
+              width="150"
+              height="100"
+              patternTransform="rotate(45 0 0)"
+              patternUnits="userSpaceOnUse"
+              ><line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="100"
+                stroke-width="75"
+                stroke="var(--dark-grey)"
+                class="iconFill"
+                style="transition: all 0.2s ease-in-out;"></line></pattern
+            ></def
+          ><path
+            d="M 100 250 L 100 750 L 275 925 L 775 925 L 950 750 L 775 575 L 950 400 L 950 250 L 775 75 L 275 75 L 100 250"
+            fill="url(#diagonal)"
+            stroke-width="50"
+            stroke="var(--green-hover)"></path></svg
+        ></a
+      >
+      <div class="vertical"></div>
+      <a href="/#projects">Projects</a>
+      <div class="vertical"></div>
+      <a href="/blog">Blog</a>
+      <div class="vertical"></div>
+      <a href="/#about">About</a>
+    </div>
+  </nav>
+
+  <body>
+    <slot />
+  </body>
+  <footer>
+    <span id="author"
+      >Made by Eny • Licensed under MPL 2.0 • <a
+        href="https://github.com/EnyCode/enymc.dev">Source Code</a
+      ></span
+    >
+    <span id="email"><a href="mailto:eny@enymc.dev">eny@enymc.dev</a></span>
+  </footer>
+
+  <style lang="scss" is:global>
+    :root {
+      --accent: 124, 58, 237;
+      --accent-gradient: linear-gradient(
+        45deg,
+        rgb(var(--accent)),
+        #da62c4 30%,
+        #f187de 60%
+      );
+
+      --text-color: #e3e3e3;
+      --text-bright: #eee;
+      --text-standout: #e4acac;
+      --text-standout-hover: #e68d8d;
+
+      /* Design Tip: Replace this with one of the below colours, e.g. green, to add more contrast.  */
+      --background-color: #2c2f33;
+      --background-primary: #303438;
+      --background-secondary: #34383b;
+      --background-tertiary: #222527;
+
+      --light-grey: #c4c4c4;
+      --dark-grey: #646464;
+
+      --accent-color: #147ad5;
+      --accent-hover: #1390ff;
+
+      --green-color: #293122;
+      --green-hover: #0da04f;
+
+      /* Breakpoints for screen sizes. These are all the max sizes for a screen */
+      --tablet-breakpoint: 849px;
+      --mobile-breakpoint: 649px;
+
+      @media (prefers-color-scheme: light) {
+        --text-color: #111;
+
+        --background-color: #f6f6f6;
+        --background-primary: #fafafa;
+        --background-secondary: #f2f2f2;
+        --background-tertiary: #dfdfdf;
+
+        --light-grey: #727272;
+        --dark-grey: #949494;
+
+        --accent-hover: #136ab6;
+
+        --green-color: #0eaf57;
+        --green-hover: #0da04f;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    html {
+      font-family: system-ui, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    code {
+      font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+        DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+
+      padding: 0.1rem 0.5rem;
+      border-radius: 5px;
+      background-color: var(--background-tertiary);
+    }
+
+    a {
+      display: inline-block;
+      padding-bottom: 4px;
+      background-image: linear-gradient(var(--green-hover) 0 0);
+      background-position: 0 100%; /*OR bottom left*/
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      transition: background-size 0.3s, background-position 0s 0.3s, color 0.2s;
+      color: var(--text-standout);
+      text-decoration: none;
+
+      &:hover {
+        background-position: 100% 100%;
+        background-size: 100% 2px;
+
+        color: var(--text-standout-hover);
+      }
+    }
+
+    nav.desktopNav {
+      width: 100%;
+      height: 2.75rem;
+      background-color: var(--background-tertiary);
+      box-shadow: 0 3px 10px -3px #000;
+
+      display: flex;
+      flex-direction: row;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        padding: 0.25rem 0;
+      }
+
+      #icon {
+        height: 100%;
+        font-size: 1.3rem;
+        display: flex;
+        flex-direction: row;
+        margin-left: 0.25rem;
+
+        svg {
+          height: 2.75rem;
+          padding: 0.0625rem;
+        }
+
+        #icon-link {
+          padding: 0.5rem;
+        }
+      }
+
+      #expand {
+        flex-grow: 2;
+      }
+
+      #wrapper {
+        padding: 0.3rem 0.5rem;
+        display: flex;
+        gap: 1.25rem;
+        margin-right: 1.5rem;
+        font-size: 1.1rem;
+
+        .vertical {
+          width: 2px;
+          background-color: var(--background-secondary);
+        }
+      }
+
+      #container {
+        width: 50vw;
+        display: flex;
+        margin: auto;
+      }
+
+      @media (max-width: 649px) {
+        display: none;
+      }
+    }
+
+    nav.mobileNav {
+      width: 100%;
+      height: 3rem;
+      background-color: var(--background-tertiary);
+      box-shadow: 0 3px 10px -3px #000;
+      position: fixed;
+      bottom: 0;
+      display: none;
+
+      flex-direction: row;
+
+      @media (max-width: 649px) {
+        display: flex;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        padding: 0.25rem 0;
+      }
+
+      #icon {
+        height: 100%;
+        font-size: 1.3rem;
+        display: flex;
+        flex-direction: row;
+        margin-left: 0.25rem;
+
+        svg {
+          height: 2.75rem;
+          padding: 0.125rem;
+        }
+
+        #icon-link {
+          padding: 0.5rem;
+        }
+      }
+
+      #wrapper {
+        padding: 0.3rem 0.5rem;
+        display: flex;
+        gap: 1.25rem;
+        margin-right: 1.5rem;
+        font-size: 1.1rem;
+
+        .vertical {
+          width: 2px;
+          background-color: var(--background-secondary);
+        }
+      }
+    }
+
+    footer {
+      height: 1.5rem;
+      background-color: var(--background-tertiary);
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 -3px 10px -3px #000;
+
+      svg {
+        height: 100%;
+        width: auto;
+      }
+
+      #email {
+        text-align: right;
+      }
+
+      a {
+        justify-self: center;
+      }
+    }
+  </style>
+</html>
