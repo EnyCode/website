@@ -11,7 +11,7 @@ const { tag } = Astro.params;
 
 import Layout from "../../../layouts/Layout.astro";
 import ArticleCard from "../../../components/ArticleCard.astro";
-import { formatDate } from "../../../util.js";
+import { dateFromString } from "../../../util.js";
 
 export interface Frontmatter {
   title: string;
@@ -25,25 +25,11 @@ var posts = await Astro.glob<Frontmatter>("../*.mdx");
 console.log(posts);
 posts = posts.filter((post) => post.frontmatter.tags.includes(tag));
 posts.sort((a, b) => {
-  const dateASplit = a.frontmatter.date.split("-");
-  const dateA = formatDate(
-    new Date(
-      parseInt(dateASplit[2]),
-      parseInt(dateASplit[1]) - 1,
-      parseInt(dateASplit[0])
-    )
-  );
+  const dateA = dateFromString(a.frontmatter.date);
 
-  const dateBSplit = b.frontmatter.date.split("-");
-  const dateB = formatDate(
-    new Date(
-      parseInt(dateBSplit[2]),
-      parseInt(dateBSplit[1]) - 1,
-      parseInt(dateBSplit[0])
-    )
-  );
+  const dateB = dateFromString(b.frontmatter.date);
 
-  return parseInt(dateB) - parseInt(dateA);
+  return dateB.getTime() - dateA.getTime();
 });
 
 if (posts.length == 0) {
@@ -64,6 +50,7 @@ if (posts.length == 0) {
             href={post.url}
             img={post.frontmatter.img}
             tags={post.frontmatter.tags}
+            date={dateFromString(post.frontmatter.date)}
           />
         ))
       }
@@ -99,7 +86,11 @@ if (posts.length == 0) {
     margin: 5rem auto;
     flex-wrap: wrap;
 
-    @media (max-width: 649px) {
+    @media (max-width: 1014px) {
+      max-width: 70%;
+    }
+
+    @media (max-width: 869px) {
       max-width: 100%;
     }
   }

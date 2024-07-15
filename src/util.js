@@ -25,6 +25,15 @@ function getDaySuffix(day) {
     }
 }
 
+export function dateFromString(dateString) {
+    var split = dateString.split("-");
+    return new Date(
+        parseInt(split[2]),
+        parseInt(split[1]),
+        parseInt(split[0])
+    );
+}
+
 export function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
 }
