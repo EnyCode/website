@@ -14,19 +14,9 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
-      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      as="style"
-      onload="
-      this.onload = null; this.rel = 'stylesheet'
-"
+      rel="stylesheet"
     />
-    <noscript
-      ><link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      /></noscript
-    >
     <link
       rel="preload"
       fetchpriority="high"
@@ -122,6 +112,7 @@ const { title } = Astro.props;
   </nav>
 
   <body>
+    <div id="content-background"></div>
     <div id="content-wrapper">
       <slot />
     </div>
@@ -136,6 +127,21 @@ const { title } = Astro.props;
   </footer>
 
   <style lang="scss" is:global>
+    #content-background {
+      position: fixed;
+      top: 4rem;
+      z-index: -2;
+      height: 100vh;
+      width: 100%;
+      background-image: url("/svg/dark/geometric.svg");
+      background-repeat: no-repeat;
+      background-position: 50%;
+
+      @media (prefers-color-scheme: light) {
+        background-image: url("/svg/light/geometric.svg");
+      }
+    }
+
     html,
     body {
       min-height: 100vh;
@@ -179,20 +185,20 @@ const { title } = Astro.props;
       --mobile-breakpoint: 649px;
 
       @media (prefers-color-scheme: light) {
-        --text-color: #111;
+        --text-color: #222;
 
-        --background-color: #f6f6f6;
-        --background-primary: #fafafa;
-        --background-secondary: #f2f2f2;
-        --background-tertiary: #dfdfdf;
+        --text-standout: #fc3e3e;
+        --text-standout-hover: #fc3e3e;
 
-        --light-grey: #727272;
+        --background-color: #e9f3ff;
+        --background-primary: #d6e4f6;
+        --background-secondary: #c6dcf8;
+        --background-tertiary: #f5f9ff;
+
+        --light-grey: #525252;
         --dark-grey: #949494;
 
-        --accent-hover: #136ab6;
-
-        --green-color: #0eaf57;
-        --green-hover: #0da04f;
+        --green-color: #ddfcd4;
       }
     }
 

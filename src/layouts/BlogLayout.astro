@@ -23,7 +23,6 @@ const parsedDate = formatDate(
 
 <Layout title={title}>
   <div id="bg"></div>
-  <div id="content-background"></div>
   <main>
     <div id="intro">
       <img alt="Background Image" id="intro-bg" src={img} />
@@ -142,18 +141,11 @@ const parsedDate = formatDate(
 
     @media (min-width: 650px) {
       background-image: url("/svg/dark/article-background.svg");
-    }
-  }
 
-  #content-background {
-    position: fixed;
-    top: 4rem;
-    z-index: -2;
-    height: 100vh;
-    width: 100%;
-    background-image: url("/svg/geometric-dark.svg");
-    background-repeat: no-repeat;
-    background-position: 50%;
+      @media (prefers-color-scheme: light) {
+        background-image: url("/svg/light/article-background.svg");
+      }
+    }
   }
 
   #content {
