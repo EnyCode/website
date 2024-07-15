@@ -1,16 +1,38 @@
 ---
 export interface Props {
   title: string;
+  description: string;
+  image?: string;
+  author?: string;
+  type?: string;
+  customMeta?: { name: string; content: string }[];
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  author,
+  type,
+  customMeta = [],
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={description} />
+    {author !== undefined ? <meta name="author" content={author} /> : ""}
+    {image !== undefined ? <meta name="og:image" content={image} /> : ""}
+    {type !== undefined ? <meta name="og:type" content={type} /> : ""}
+    <meta name="og:title" content={title} />
+    {customMeta.map((meta) => <meta name={meta.name} content={meta.content} />)}
+    <meta name="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {image !== undefined ? <meta name="twitter:image" content={image} /> : ""}
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
@@ -21,7 +43,7 @@ const { title } = Astro.props;
       rel="preload"
       fetchpriority="high"
       as="image"
-      href="/svg/geometric-dark.svg"
+      href="/svg/dark/geometric.svg"
       type="image/webp"
     />
     <meta name="generator" content={Astro.generator} />
@@ -177,7 +199,7 @@ const { title } = Astro.props;
       --accent-color: #147ad5;
       --accent-hover: #1390ff;
 
-      --green-color: #293122;
+      --green-color: #23382f;
       --green-hover: #0da04f;
 
       /* Breakpoints for screen sizes. These are all the max sizes for a screen */
@@ -221,10 +243,17 @@ const { title } = Astro.props;
     code {
       font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
         DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    }
 
-      padding: 0.1rem 0.5rem;
+    :not(pre) > code {
+      background-color: var(--background-color);
+      padding: 0.2rem 0.4rem;
       border-radius: 5px;
-      background-color: var(--background-tertiary);
+    }
+
+    .astro-code {
+      padding: 1rem;
+      border-radius: 10px;
     }
 
     a {

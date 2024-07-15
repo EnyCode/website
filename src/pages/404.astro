@@ -2,10 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout description="Eny's website, which is coming soon!" title="Coming soon!">
+<Layout description="" title="404">
   <main>
-    <h1>This page is coming soon!</h1>
-    <h2>In the mean time, why not check out <a href="/blog">my blog</a>?</h2>
+    <h1>Hmm...</h1>
+    <h2>This page doesn't exist...</h2>
+    <h3><a href="/">Go back home</a> | <a href="/blog">Go to blog</a></h3>
   </main>
 </Layout>
 
@@ -25,5 +26,11 @@ import Layout from "../layouts/Layout.astro";
     bottom: 0;
     position: absolute;
     width: calc(100% - 2rem);
+  }
+
+  h3 {
+    a {
+      width: 9rem;
+    }
   }
 </style>

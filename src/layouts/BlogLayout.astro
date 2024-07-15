@@ -1,27 +1,42 @@
 ---
-import { formatDate } from "../util.js";
+import { formatDate, dateFromString, yearMonthDay } from "../util.js";
 
 import Layout from "../layouts/Layout.astro";
+import { MarkdownLayoutProps } from "astro";
 
-export interface Props {
+type Props = MarkdownLayoutProps<{
   title: string;
   author: string;
   img: string;
   tags: string[];
   date: string;
   minutesRead: string;
-}
+  description: string;
+}>;
 
-const { title, author, img, minutesRead, date, tags } =
+const { title, author, img, minutesRead, date, tags, description } =
   Astro.props["frontmatter"];
 
-const rawDate = date.split("-");
-const parsedDate = formatDate(
-  new Date(parseInt(rawDate[2]), parseInt(rawDate[1]) - 1, parseInt(rawDate[0]))
-);
+const parsedDate = formatDate(dateFromString(date));
 ---
 
-<Layout title={title}>
+<Layout
+  title={title}
+  description={description}
+  image={img}
+  author={author}
+  type="article"
+  customMeta={[
+    {
+      name: "article:published_time",
+      content: yearMonthDay(dateFromString(date)),
+    },
+    {
+      name: "article:author",
+      content: author,
+    },
+  ]}
+>
   <div id="bg"></div>
   <main>
     <div id="intro">
