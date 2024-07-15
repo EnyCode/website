@@ -12,7 +12,8 @@ export interface Props {
   minutesRead: string;
 }
 
-const { title, author, img, minutesRead, date } = Astro.props["frontmatter"];
+const { title, author, img, minutesRead, date, tags } =
+  Astro.props["frontmatter"];
 
 const rawDate = date.split("-");
 const parsedDate = formatDate(
@@ -21,11 +22,7 @@ const parsedDate = formatDate(
 ---
 
 <Layout title={title}>
-  <img
-    alt="Background Image"
-    src="https://www.lizwfineart.com/wp-content/uploads/2016/03/Firey-Sunset-in-the-Virgin-Islands-Liz-W-Seascape-Painting-close-up-2.jpg"
-    id="bg"
-  />
+  <div id="bg"></div>
   <div id="content-background"></div>
   <main>
     <div id="intro">
@@ -34,6 +31,15 @@ const parsedDate = formatDate(
         <h1>{title}</h1>
         <br />
         <span>{author} • {parsedDate} • {minutesRead}</span>
+        <br />
+        <br />
+        {
+          tags.map((tag) => (
+            <a class="tag" href={`/blog/tag/${tag}`}>
+              {tag}
+            </a>
+          ))
+        }
       </div>
     </div>
     <div id="content">
@@ -52,6 +58,10 @@ const parsedDate = formatDate(
 
     @media (max-width: 849px) {
       max-width: 90vw;
+    }
+
+    @media (max-width: 1249px) {
+      max-width: 70vw;
     }
 
     @media (max-width: 649px) {
@@ -82,6 +92,28 @@ const parsedDate = formatDate(
       transform: translate(-50%, -35%);
       text-align: center;
       font-weight: 500;
+      width: 50%;
+
+      @media (max-width: 649px) {
+        width: 75%;
+      }
+
+      .tag {
+        color: var(--light-grey);
+        padding: 0.2rem 0.5rem;
+        background-color: var(--background-secondary);
+        border-radius: 5px;
+        transition: transform 0.2s ease-in-out, background-size 0.3s,
+          background-position 0s 0.3s;
+        width: auto;
+        font-size: 1.1rem;
+        margin: 0.2rem 0.5rem;
+        box-shadow: 0 3px 3px -3px #000;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
 
       @media (max-width: 649px) {
         top: 15%;
@@ -101,10 +133,16 @@ const parsedDate = formatDate(
 
   #bg {
     position: absolute;
-    filter: blur(5px);
+    top: 0;
     z-index: -1;
-    height: 30rem;
+    height: 35rem;
     width: 100%;
+    object-fit: cover;
+    box-shadow: 0 3px 10px -3px #000;
+
+    @media (min-width: 650px) {
+      background-image: url("/svg/dark/article-background.svg");
+    }
   }
 
   #content-background {
