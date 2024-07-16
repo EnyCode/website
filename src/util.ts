@@ -1,4 +1,5 @@
 export function formatDate(date: Date) {
+    date.setMonth(date.getMonth() - 1);
     const formattedDate = date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
     
     // Function to add the 'th', 'st', 'nd', or 'rd' suffix to the day

@@ -19,10 +19,12 @@ export interface Frontmatter {
   img: string;
   tags: string[];
   date: string;
+  unlisted?: boolean;
 }
 
 var posts = await Astro.glob<Frontmatter>("../*.mdx");
 console.log(posts);
+posts.filter((post) => post.frontmatter.unlisted == undefined || false);
 posts = posts.filter((post) => post.frontmatter.tags.includes(tag));
 posts.sort((a, b) => {
   const dateA = dateFromString(a.frontmatter.date);

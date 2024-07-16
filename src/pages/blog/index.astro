@@ -4,6 +4,7 @@ import ArticleCard from "../../components/ArticleCard.astro";
 import { dateFromString } from "../../util.js";
 
 const posts = await Astro.glob("./*.mdx");
+posts.filter((post) => post.frontmatter.unlisted == undefined || false);
 posts.sort((a, b) => {
   const dateA = dateFromString(a.frontmatter.date);
 
