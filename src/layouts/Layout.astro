@@ -18,7 +18,7 @@ const {
 } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -71,7 +71,7 @@ const {
                 x2="0"
                 y2="100"
                 stroke-width="75"
-                stroke="var(--dark-grey)"
+                stroke="var(--light-grey)"
                 class="iconFill"
                 style="transition: all 0.2s ease-in-out;"></line></pattern
             ></def
@@ -79,7 +79,7 @@ const {
             d="M 100 250 L 100 750 L 275 925 L 775 925 L 950 750 L 775 575 L 950 400 L 950 250 L 775 75 L 275 75 L 100 250"
             fill="url(#diagonal)"
             stroke-width="50"
-            stroke="var(--green-hover)"></path></svg
+            stroke="var(--accent-color)"></path></svg
         >
         <a id="icon-link" href="/"><span>&lt;eny /&gt;</span></a>
       </div>
@@ -113,7 +113,7 @@ const {
                 x2="0"
                 y2="100"
                 stroke-width="75"
-                stroke="var(--dark-grey)"
+                stroke="var(--light-grey)"
                 class="iconFill"
                 style="transition: all 0.2s ease-in-out;"></line></pattern
             ></def
@@ -121,7 +121,7 @@ const {
             d="M 100 250 L 100 750 L 275 925 L 775 925 L 950 750 L 775 575 L 950 400 L 950 250 L 775 75 L 275 75 L 100 250"
             fill="url(#diagonal)"
             stroke-width="50"
-            stroke="var(--green-hover)"></path></svg
+            stroke="var(--accent-color)"></path></svg
         ></a
       >
       <div class="vertical"></div>
@@ -161,6 +161,7 @@ const {
       background-image: url("/svg/dark/geometric.svg");
       background-repeat: no-repeat;
       background-position: 50%;
+      background-size: cover;
 
       @media (prefers-color-scheme: light) {
         background-image: url("/svg/light/geometric.svg");
@@ -173,57 +174,26 @@ const {
     }
 
     #content-wrapper {
-      min-height: calc(100vh - 14.25rem);
+      min-height: calc(100vh - 7.25rem);
     }
 
     :root {
-      --accent: 124, 58, 237;
-      --accent-gradient: linear-gradient(
-        45deg,
-        rgb(var(--accent)),
-        #da62c4 30%,
-        #f187de 60%
-      );
-
-      --text-color: #e3e3e3;
-      --text-bright: #eee;
-      --text-standout: #e4acac;
-      --text-standout-hover: #e68d8d;
-
-      /* Design Tip: Replace this with one of the below colours, e.g. green, to add more contrast.  */
-      --background-color: #2c2f33;
-      --background-primary: #303438;
-      --background-secondary: #34383b;
-      --background-tertiary: #222527;
-
-      --light-grey: #c4c4c4;
-      --dark-grey: #646464;
-
       --accent-color: #147ad5;
-      --accent-hover: #1390ff;
 
-      --green-color: #23382f;
-      --green-hover: #0da04f;
+      --text-color: #444;
+      --text-white: #eee;
+      --light-grey: #646464;
 
-      /* Breakpoints for screen sizes. These are all the max sizes for a screen */
-      --tablet-breakpoint: 849px;
-      --mobile-breakpoint: 649px;
+      --text-standout: #c43535;
+      --text-standout-hover: #a62323;
+
+      --background-color: #fff3c8;
+      --element-color: #fcefc7;
+
+      --secondary-color: #d7cfb8;
 
       @media (prefers-color-scheme: light) {
-        --text-color: #222;
-
-        --text-standout: #fc3e3e;
-        --text-standout-hover: #fc3e3e;
-
-        --background-color: #e9f3ff;
-        --background-primary: #d6e4f6;
-        --background-secondary: #c6dcf8;
-        --background-tertiary: #f5f9ff;
-
-        --light-grey: #525252;
-        --dark-grey: #949494;
-
-        --green-color: #ddfcd4;
+        // Coming soon!
       }
     }
 
@@ -244,8 +214,15 @@ const {
     }
 
     code {
-      font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-        DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+      font-family:
+        Menlo,
+        Monaco,
+        Lucida Console,
+        Liberation Mono,
+        DejaVu Sans Mono,
+        Bitstream Vera Sans Mono,
+        Courier New,
+        monospace;
     }
 
     :not(pre) > code {
@@ -262,11 +239,14 @@ const {
     a {
       display: inline-block;
       padding-bottom: 4px;
-      background-image: linear-gradient(var(--green-hover) 0 0);
+      background-image: linear-gradient(var(--accent-color) 0 0);
       background-position: 0 100%; /*OR bottom left*/
       background-size: 0% 1px;
       background-repeat: no-repeat;
-      transition: background-size 0.3s, background-position 0s 0.3s, color 0.2s;
+      transition:
+        background-size 0.3s,
+        background-position 0s 0.3s,
+        color 0.2s;
       color: var(--text-standout);
       text-decoration: none;
 
@@ -281,7 +261,7 @@ const {
     nav.desktopNav {
       width: 100%;
       height: 2.75rem;
-      background-color: var(--background-tertiary);
+      background-color: var(--background-color);
       box-shadow: 0 3px 10px -3px #000;
 
       display: flex;
@@ -319,7 +299,7 @@ const {
 
         .vertical {
           width: 2px;
-          background-color: var(--background-secondary);
+          background-color: var(--secondary-color);
         }
       }
 
@@ -341,7 +321,7 @@ const {
     nav.mobileNav {
       width: 100%;
       height: 3rem;
-      background-color: var(--background-tertiary);
+      background-color: var(--background-color);
       box-shadow: 0 3px 10px -3px #000;
       position: fixed;
       bottom: 0;
@@ -384,20 +364,20 @@ const {
 
         .vertical {
           width: 2px;
-          background-color: var(--background-secondary);
+          background-color: var(--text-color);
         }
       }
     }
 
     footer {
       height: 1.5rem;
-      background-color: var(--background-tertiary);
+      background-color: var(--background-color);
       margin-top: 2rem;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       padding: 0.5rem 1rem;
-      box-shadow: 0 -3px 10px -3px #000;
+      box-shadow: 0 -3px 3px -3px #000;
 
       svg {
         height: 100%;
@@ -420,10 +400,9 @@ const {
     input[type="email"],
     input[type="text"] {
       width: 15rem;
-      background-color: var(--background-primary);
-      border: 2px solid var(--dark-grey);
+      background-color: var(--background-color);
+      border: 2px solid var(--secondary-color);
       transition: border-color 0.2s ease-in-out;
-      box-shadow: 0 3px 3px -3px #000;
       border-radius: 5px;
       height: 1.75rem;
       color: inherit;
@@ -432,7 +411,7 @@ const {
 
       &:focus {
         outline: none;
-        border-color: var(--green-hover);
+        border-color: var(--accent-color);
       }
     }
 
@@ -446,14 +425,14 @@ const {
       width: 1.25rem;
       height: 1.25rem;
       border-radius: 5px;
-      border: 2px solid var(--green-hover);
+      border: 2px solid var(--accent-color);
       background-color: var(--background-color);
       vertical-align: middle;
       margin-right: 0.5rem;
     }
 
     input[type="checkbox"]:checked + label::before {
-      background-color: var(--background-tertiary);
+      background-color: var(--background-color);
       content: "✔";
       text-align: center;
     }

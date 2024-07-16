@@ -8,9 +8,11 @@ import Button from "./Button.astro";
   src="https://unpkg.com/validator@latest/validator.min.js"></script>
 <div class="newsletter-signup">
   <h2>Newsletter Signup</h2>
-  <span id="email-error" class="describer">We promise we won't spam you.</span>
+  <label id="email-error" class="describer" for="email"
+    >Your Email. We won't spam you.
+  </label>
   <div id="form">
-    <input type="email" id="email" />
+    <input type="email" id="email" placeholder="john.doe@example.com" />
     <Button
       text=" Configure"
       img="/svg/dark/cog.svg"
@@ -97,15 +99,14 @@ function subscribe() {
   };
 
   const req = new XMLHttpRequest();
-  req.open("PUT", "https://letter.enymc.dev/create");
+  req.open("POST", "https://letter.enymc.dev/subscribe");
   req.setRequestHeader("Content-Type", "application/json");
   req.addEventListener("load", (event) => {
     if (req.status >= 200 && req.status < 300) {
-      console.log(req.responseText);
       document.getElementById("configure-email").close();
     } else {
       console.warn(req.statusText, req.responseText);
-      status.innerHTML = req.responseText;
+      status.innerHTML = "Error - " + JSON.parse(req.responseText).error;
     }
   });
   req.send(JSON.stringify(data));
@@ -113,6 +114,7 @@ function subscribe() {
 
 document.getElementById("tags").addEventListener("click", function (e) {
   let target = e.target;
+  if (target.id == "tags") return;
   if (target.classList.contains("selected")) {
     target.classList.remove("selected");
     tags.splice(tags.indexOf(e.target.innerText), 1);
@@ -120,7 +122,6 @@ document.getElementById("tags").addEventListener("click", function (e) {
     target.classList.add("selected");
     tags.push(e.target.innerText);
   }
-  console.log(tags);
 });
 </script>
 <style lang="scss">
@@ -150,11 +151,12 @@ document.getElementById("tags").addEventListener("click", function (e) {
       padding: 0.2rem 0.5rem;
       background-color: var(--background-color);
       border-radius: 5px;
-      transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out,
+      transition:
+        transform 0.2s ease-in-out,
         outline 0.2s ease-in-out;
       width: auto;
       font-size: 1.1rem;
-      box-shadow: 0 3px 3px -3px #000;
+      border: solid 2px var(--secondary-color);
       height: 1.5rem;
       cursor: pointer;
 
@@ -164,7 +166,6 @@ document.getElementById("tags").addEventListener("click", function (e) {
     }
 
     .selected {
-      background-color: var(--background-secondary);
       outline: 2px solid var(--text-standout);
     }
   }
@@ -178,7 +179,7 @@ document.getElementById("tags").addEventListener("click", function (e) {
     height: 50%;
     bottom: 20%;
     border: none;
-    background-color: var(--green-color);
+    background-color: var(--element-color);
     border-radius: 10px;
     color: inherit;
     box-shadow: 0 3px 10px -3px #000;
@@ -226,7 +227,8 @@ document.getElementById("tags").addEventListener("click", function (e) {
     width: min-content;
     margin-top: 2rem;
     padding: 1rem;
-    background-color: var(--background-tertiary);
+    background-color: var(--element-color);
+    border: solid 2px var(--secondary-color);
     border-radius: 10px;
     width: max-content;
 

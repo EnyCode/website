@@ -6,7 +6,11 @@ import Layout from "../layouts/Layout.astro";
   <main>
     <h1>Hmm...</h1>
     <h2>This page doesn't exist...</h2>
-    <h3><a href="/">Go back home</a> | <a href="/blog">Go to blog</a></h3>
+    <h3>
+      <a href="/">Go back home</a>
+      <span></span>
+      <a href="/blog">Go to blog</a>
+    </h3>
   </main>
 </Layout>
 
@@ -29,8 +33,15 @@ import Layout from "../layouts/Layout.astro";
   }
 
   h3 {
-    a {
-      width: 9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    span {
+      background-color: var(--text-color);
+      height: 1.5rem;
+      width: 2px;
+      margin: 0 3rem;
     }
   }
 </style>

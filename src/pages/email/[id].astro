@@ -1,0 +1,11 @@
+---
+export const prerender = false;
+import Layout from "../../layouts/Layout.astro";
+
+const { id } = Astro.params;
+console.log((await fetch("https://letter.enymc.dev/get/")).status);
+---
+
+<Layout description="" title="Email Management">{id}</Layout>
+
+<style lang="scss"></style>

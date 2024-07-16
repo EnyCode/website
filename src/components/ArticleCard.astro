@@ -51,8 +51,8 @@ const parsedDate =
     width: 18rem;
     height: 23.25rem;
     border-radius: 10px;
-    background-color: var(--background-tertiary);
-    box-shadow: rgb(0, 0, 0) 0px 3px 10px -3px;
+    background-color: var(--element-color);
+    box-shadow: rgb(0, 0, 0) 0px 3px 5px -3px;
 
     img {
       height: 12rem;
@@ -89,13 +89,15 @@ const parsedDate =
       a {
         color: var(--light-grey);
         padding: 0.2rem 0.5rem;
-        background-color: var(--background-color);
+        background-color: var(--element-color);
         border-radius: 5px;
-        transition: transform 0.2s ease-in-out, background-size 0.3s,
+        transition:
+          transform 0.2s ease-in-out,
+          background-size 0.3s,
           background-position 0s 0.3s;
         width: auto;
         font-size: 1.1rem;
-        box-shadow: 0 3px 3px -3px #000;
+        border: solid 2px var(--secondary-color);
 
         &:hover {
           transform: scale(1.1);

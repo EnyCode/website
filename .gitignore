@@ -15,6 +15,7 @@ pnpm-lock.yaml
 .eslintcache
 .pnpm-store
 .wrangler/
+/bun.lockb
 
 /contacts.json
 
