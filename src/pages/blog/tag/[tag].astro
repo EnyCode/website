@@ -4,6 +4,7 @@ export function getStaticPaths() {
     { params: { tag: "crafti" } },
     { params: { tag: "devlog" } },
     { params: { tag: "test" } },
+    { params: { tag: "legal" } },
   ];
 }
 
@@ -33,10 +34,6 @@ posts.sort((a, b) => {
 
   return dateB.getTime() - dateA.getTime();
 });
-
-if (posts.length == 0) {
-  return Astro.redirect("/404");
-}
 ---
 
 <Layout title="Eny's Blog Posts" description={`All blog articles about ${tag}`}>

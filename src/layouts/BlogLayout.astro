@@ -3,6 +3,7 @@ import { formatDate, dateFromString, yearMonthDay } from "../util.js";
 
 import Layout from "../layouts/Layout.astro";
 import { MarkdownLayoutProps } from "astro";
+import NewsletterSignup from "../components/NewsletterSignup.astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -60,6 +61,7 @@ const parsedDate = formatDate(dateFromString(date));
       <slot />
     </div>
   </main>
+  <NewsletterSignup />
 </Layout>
 <style lang="scss">
   main {

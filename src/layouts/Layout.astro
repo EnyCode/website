@@ -83,7 +83,7 @@ const {
         >
         <a id="icon-link" href="/"><span>&lt;eny /&gt;</span></a>
       </div>
-      <div id="expand"></div>
+      <div class="expand"></div>
       <div id="wrapper">
         <a href="/#projects">Projects</a>
         <div class="vertical"></div>
@@ -149,6 +149,9 @@ const {
   </footer>
 
   <style lang="scss" is:global>
+    .expand {
+      flex-grow: 2;
+    }
     #content-background {
       position: fixed;
       top: 4rem;
@@ -307,10 +310,6 @@ const {
         }
       }
 
-      #expand {
-        flex-grow: 2;
-      }
-
       #wrapper {
         padding: 0.3rem 0.5rem;
         display: flex;
@@ -416,6 +415,47 @@ const {
 
     li {
       margin: 5px 0;
+    }
+
+    input[type="email"],
+    input[type="text"] {
+      width: 15rem;
+      background-color: var(--background-primary);
+      border: 2px solid var(--dark-grey);
+      transition: border-color 0.2s ease-in-out;
+      box-shadow: 0 3px 3px -3px #000;
+      border-radius: 5px;
+      height: 1.75rem;
+      color: inherit;
+      font-size: 1.05rem;
+      padding: 0 0.5rem;
+
+      &:focus {
+        outline: none;
+        border-color: var(--green-hover);
+      }
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    input[type="checkbox"] + label::before {
+      content: "";
+      display: inline-block;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 5px;
+      border: 2px solid var(--green-hover);
+      background-color: var(--background-color);
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    input[type="checkbox"]:checked + label::before {
+      background-color: var(--background-tertiary);
+      content: "✔";
+      text-align: center;
     }
   </style>
 
