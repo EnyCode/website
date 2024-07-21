@@ -12,7 +12,7 @@ const { tag } = Astro.params;
 
 import Layout from "../../../layouts/Layout.astro";
 import ArticleCard from "../../../components/ArticleCard.astro";
-import { dateFromString } from "../../../util.js";
+import { dateFromString } from "../../../util.ts";
 
 export interface Frontmatter {
   title: string;

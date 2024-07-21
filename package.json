@@ -10,15 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^7.0.1",
-    "@astrojs/mdx": "^1.0.0",
-    "astro": "^4.0.0",
+    "@astrojs/node": "^8.3.2",
+    "@astrojs/mdx": "^1.1.5",
+    "astro": "^4.12.2",
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
-    "sass": "^1.66.1"
+    "sass": "^1.77.8"
   },
   "devDependencies": {
-    "@types/node": "^20.5.7",
-    "wrangler": "^3.6.0"
+    "@types/node": "^20.5.7"
   }
 }

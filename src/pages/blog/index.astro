@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
-import { dateFromString } from "../../util.js";
+import { dateFromString } from "../../util.ts";
 
 const posts = await Astro.glob("./*.mdx");
 posts.filter((post) => post.frontmatter.unlisted == undefined || false);

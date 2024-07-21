@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import { remarkReadingTime } from './remark-reading-time.mjs';
 import mdx from "@astrojs/mdx";
 
-import cloudflare from "@astrojs/cloudflare";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,5 +11,5 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime]
   },
   output: "hybrid",
-  adapter: cloudflare()
+  adapter: node({mode: 'standalone'})
 });

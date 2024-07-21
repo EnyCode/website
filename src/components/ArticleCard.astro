@@ -7,7 +7,7 @@ export interface Props {
   tags: string[];
   date: Date;
 }
-import { getRandomInt } from "../util.js";
+import { getRandomInt } from "../util.ts";
 
 const { title, description, href, img, tags, date } = Astro.props;
 const imgCSS = `url(${img})`;
